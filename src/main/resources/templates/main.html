@@ -31,7 +31,7 @@
             </div>
         </nav>
         <!-- Header-->
-        <header class="bg-dark py-5">
+        <header class="bg-dark py-5" style="margin-bottom: 15px">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Team Matching</h1>
@@ -40,6 +40,35 @@
             </div>
         </header>
         <!-- Section-->
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-auto">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            카테고리
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+                            <a class="dropdown-item" href="#">프로젝트</a>
+                            <a class="dropdown-item" href="#">동아리</a>
+                            <a class="dropdown-item" href="#">취미</a>
+                            <a class="dropdown-item" href="#">기타</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <form class="form-inline">
+                        <div class="input-group">
+                            <input class="form-control" type="search" placeholder="검색" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">검색</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-primary" href="/team-matching/add">팀원찾기</a>
+                </div>
+            </div>
+        </div>
+
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
