@@ -14,24 +14,53 @@
     <link href="css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">Team Matching</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/team-matching/project}" >프로젝트</a></li>
+                <li class="nav-item"><a class="nav-link" href="#club" th:href="@{/team-matching/club}">동아리</a></li>
+                <li class="nav-item"><a class="nav-link" href="#hobby" th:href="@{/team-matching/hobby}">취미</a></li>
+                <li class="nav-item"><a class="nav-link" href="#etc" th:href="@{/team-matching/etc}">기타</a></li>
+                <li class="nav-item"><a class="nav-link" href="/team-matching/add" >팀원 찾기</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Header-->
+<header class="bg-dark py-5" style="margin-bottom: 15px">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Team Matching</h1>
+            <p class="lead fw-normal text-white-50 mb-0">팀원을 찾아보세요!</p>
+        </div>
+    </div>
+</header>
+<body>
 <div class="container">
     <div class="py-5 text-center">
         <h2>글쓰기 폼</h2>
     </div>
-    <h4 class="mb-3">제목 입력</h4>
-    <form action="item.html" th:action method="post">
+    <form action="post-detail.html" th:action method="post">
         <div>
-            <label for="itemName">제목</label>
-            <input type="text" id="itemName" name="itemName" class="form-control" placeholder="제목을 입력하세요">
+            <label for="title">카테고리</label>
+            <input type="text" id="category" name="category" class="form-control" placeholder="카테고리를 입력하세요">
         </div>
         <div>
-            <label for="price">내용</label>
-            <input type="text" id="price" name="price" class="form-control"
+            <label for="title">제목</label>
+            <input type="text" id="title" name="title" class="form-control" placeholder="제목을 입력하세요">
+        </div>
+        <div>
+            <label for="content">내용</label>
+            <input type="text" id="content" name="content" class="form-control"
                    placeholder="내용을 입력하세요">
         </div>
         <div>
-            <label for="quantity">모집 인원</label>
-            <input type="text" id="quantity" name="quantity" class="form-control" placeholder="모집 인원을 입력하세요">
+            <label for="max_team">모집 인원</label>
+            <input type="text" id="max_team" name="max_team" class="form-control" placeholder="모집 인원을 입력하세요">
         </div>
         <hr class="my-4">
         <div class="row">

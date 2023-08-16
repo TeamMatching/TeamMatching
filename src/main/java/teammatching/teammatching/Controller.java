@@ -1,31 +1,33 @@
 package teammatching.teammatching;
 
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teammatching.teammatching.domain.Post;
-
-import java.util.ArrayList;
+import teammatching.teammatching.domain.PostRepository;
 import java.util.List;
 
 @org.springframework.stereotype.Controller
 @RequestMapping("/team-matching")
+@RequiredArgsConstructor
 public class Controller {
 
-    private MultiValueMap<String, Post> postsByCategory = new LinkedMultiValueMap<>();  //일단 db 예시
-
+    private final PostRepository postRepository;        //일단 db 예시
 
     @GetMapping //메인 페이지
     public String mainPage() {
         return "main";
     }
 
+    @ResponseBody
     @GetMapping("/posts/{id}") //게시글 상세조회
-    public String postDetail(@PathVariable Integer id) {
+    public Post postDetail(@PathVariable Long id) {
+        //db에서 id로 게시글을 찾아서 Post객체에 주입
+        Post post = postRepository.findById(id);
 
-        return "post-detail";
+        return post;
     }
 
     @GetMapping("/add") //게시글 등록 폼
@@ -34,9 +36,10 @@ public class Controller {
     }
 
     @PostMapping("/add")
-    public String addPost() {
-
-        return "redirect:/team-matching";
+    public String addPost(@ModelAttribute Post post, RedirectAttributes redirectAttributes) {
+        postRepository.save(post);
+        redirectAttributes.addAttribute("id", post.getId());
+        return "redirect:/team-matching/posts/{id}";
     }
 
     @DeleteMapping("/posts/delete/{id}")
@@ -58,31 +61,19 @@ public class Controller {
 
     @GetMapping("/{category}")
     public String requestParam(@PathVariable String category, Model model) {
-        List<Post> posts = getPostsByCategory(category);
-        for (Post post : posts) {
-            System.out.println(post);
-        }
+        List<Post> posts = postRepository.findByCategory(category);
         model.addAttribute("posts", posts);
         return "main";
     }
 
     @PostConstruct  //테스트 데이터 추가
     public void addPosts() {
-        List<Post> posts = new ArrayList<>();
-        posts.add(new Post("project", "프로젝트1", "프로젝트 모집"));
-        posts.add(new Post("project", "프로젝트2", "프로젝트 모집중"));
-        posts.add(new Post("hobby", "취미1", "롤5인큐모집"));
-        posts.add(new Post("hobby", "취미2", "취미모집"));
-        posts.add(new Post("club", "동아리1", "동아리"));
-        posts.add(new Post("club", "동아리2", "동아리모집"));
-        for (Post post : posts) {
-            postsByCategory.add(post.getCategory(),post);
-        }
-
-
+        postRepository.save(new Post("project", "프로젝트1", "프로젝트 모집",6));
+        postRepository.save(new Post("project", "프로젝트2", "프로젝트 모집중",3));
+        postRepository.save(new Post("hobby", "취미1", "롤5인큐모집",5));
+        postRepository.save(new Post("hobby", "취미2", "취미모집",3));
+        postRepository.save(new Post("club", "동아리1", "동아리",6));
+        postRepository.save(new Post("club", "동아리2", "동아리모집",1));
     }
 
-    public List<Post> getPostsByCategory(String category) {
-        return postsByCategory.getOrDefault(category, new ArrayList<>());
-    }
 }
