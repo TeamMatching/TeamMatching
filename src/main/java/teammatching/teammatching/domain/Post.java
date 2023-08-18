@@ -16,4 +16,7 @@ public class Post {
         this.content = content;
         this.max_team = max_team;
     }
+
+    public Post() {
+    }
 }

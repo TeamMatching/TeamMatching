@@ -2,17 +2,32 @@ package teammatching.teammatching;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import teammatching.teammatching.domain.Category;
 import teammatching.teammatching.domain.Post;
 import teammatching.teammatching.domain.PostRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 
-@org.springframework.stereotype.Controller
+
+@Controller
 @RequestMapping("/team-matching")
 @RequiredArgsConstructor
-public class Controller {
+public class MainController {
+
+    @ModelAttribute("categories")
+    public List<Category> categories(){
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category("project", "프로젝트"));
+        categories.add(new Category("club", "동아리"));
+        categories.add(new Category("hobby", "취미"));
+        categories.add(new Category("etc", "기타"));
+        return categories;
+    }
 
     private final PostRepository postRepository;        //일단 db 예시
 
@@ -31,7 +46,8 @@ public class Controller {
     }
 
     @GetMapping("/add") //게시글 등록 폼
-    public String addForm() {
+    public String addForm(Model model) {
+        model.addAttribute("post", new Post());
         return "addForm";
     }
 
