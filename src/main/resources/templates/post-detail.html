@@ -1,10 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Team Matching - 팀원 찾기 플랫폼</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" th:href="@{/assets/favicon.ico}" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">Team Matching</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/team-matching/project}" >프로젝트</a></li>
+                <li class="nav-item"><a class="nav-link" href="#club" th:href="@{/team-matching/club}">동아리</a></li>
+                <li class="nav-item"><a class="nav-link" href="#hobby" th:href="@{/team-matching/hobby}">취미</a></li>
+                <li class="nav-item"><a class="nav-link" href="#etc" th:href="@{/team-matching/etc}">기타</a></li>
+                <li class="nav-item"><a class="nav-link" href="/team-matching/add" >팀원 찾기</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Header-->
+<header class="bg-dark py-5" style="margin-bottom: 15px">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Team Matching</h1>
+            <p class="lead fw-normal text-white-50 mb-0">팀원을 찾아보세요!</p>
+        </div>
+    </div>
+</header>
+<!--</header>-->
 <body>
-
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4 fs-1 fw-bold" th:text="${post.title}">게시글 제목</h1>
+            <hr class="my-4"> <!-- 구분선 추가 -->
+            <p class="card-text fs-5 text-center mb-4"><span th:text="${post.content}"></span></p>
+            <span class="card-text fs-5">모집인원:</span>
+            <span class="card-text fs-5" th:text="${post.max_team}"></span>
+            <!-- 다른 속성들도 필요한대로 출력 -->
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js" th:src="@{/js/scripts.js}"></script>
 </body>
+
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+</footer>
 </html>

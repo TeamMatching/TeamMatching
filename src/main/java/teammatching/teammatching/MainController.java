@@ -36,13 +36,12 @@ public class MainController {
         return "main";
     }
 
-    @ResponseBody
     @GetMapping("/posts/{id}") //게시글 상세조회
-    public Post postDetail(@PathVariable Long id) {
+    public String postDetail(@PathVariable Long id,Model model) {
         //db에서 id로 게시글을 찾아서 Post객체에 주입
         Post post = postRepository.findById(id);
-
-        return post;
+        model.addAttribute("post",post);
+        return "post-detail";
     }
 
     @GetMapping("/add") //게시글 등록 폼
