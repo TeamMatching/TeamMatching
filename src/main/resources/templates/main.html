@@ -21,11 +21,11 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/team-matching/project}" >프로젝트</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#club" th:href="@{/team-matching/club}">동아리</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#hobby" th:href="@{/team-matching/hobby}">취미</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#etc" th:href="@{/team-matching/etc}">기타</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/team-matching/add" >팀원 찾기</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/project}" >프로젝트</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#club" th:href="@{/club}">동아리</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#hobby" th:href="@{/hobby}">취미</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#etc" th:href="@{/etc}">기타</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/add" th:href="@{/add}" >팀원 찾기</a></li>
                     </ul>
                 </div>
             </div>
@@ -48,10 +48,10 @@
                             카테고리
                         </button>
                         <div class="dropdown-menu" aria-labelledby="categoryDropdown">
-                            <a class="dropdown-item" href="#" th:href="@{/team-matching/project}">프로젝트</a>
-                            <a class="dropdown-item" href="#" th:href="@{/team-matching/club}">동아리</a>
-                            <a class="dropdown-item" href="#" th:href="@{/team-matching/hobby}">취미</a>
-                            <a class="dropdown-item" href="#" th:href="@{/team-matching/etc}">기타</a>
+                            <a class="dropdown-item" href="#" th:href="@{/project}">프로젝트</a>
+                            <a class="dropdown-item" href="#" th:href="@{/club}">동아리</a>
+                            <a class="dropdown-item" href="#" th:href="@{/hobby}">취미</a>
+                            <a class="dropdown-item" href="#" th:href="@{/etc}">기타</a>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     </form>
                 </div>
                 <div class="col-auto">
-                    <a class="btn btn-primary" href="/team-matching/add">팀원찾기</a>
+                    <a class="btn btn-primary" href="/add">팀원찾기</a>
                 </div>
             </div>
         </div>
@@ -87,7 +87,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" th:href="@{posts/{id}(id=${post.id})}">지원하기</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" th:href="@{/posts/{id}(id=${post.id})}">지원하기</a></div>
                             </div>
                         </div>
                     </div>

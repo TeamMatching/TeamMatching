@@ -2,20 +2,25 @@ package teammatching.teammatching;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teammatching.teammatching.domain.Category;
 import teammatching.teammatching.domain.Post;
 import teammatching.teammatching.domain.PostRepository;
+import teammatching.teammatching.form.PostSaveForm;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Slf4j
 @Controller
-@RequestMapping("/team-matching")
+@RequestMapping
 @RequiredArgsConstructor
 public class MainController {
 
@@ -31,8 +36,10 @@ public class MainController {
 
     private final PostRepository postRepository;        //일단 db 예시
 
-    @GetMapping //메인 페이지
-    public String mainPage() {
+    @GetMapping("/") //메인 페이지
+    public String mainPage(Model model) {
+        List<Post> posts = postRepository.findAll();
+        model.addAttribute("posts",posts);
         return "main";
     }
 
@@ -51,25 +58,36 @@ public class MainController {
     }
 
     @PostMapping("/add")
-    public String addPost(@ModelAttribute Post post, RedirectAttributes redirectAttributes) {
+    public String addPost(@Validated @ModelAttribute("post")PostSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "addForm";
+        }
+
+        Post post = new Post();
+        post.setCategory(form.getCategory());
+        post.setTitle(form.getTitle());
+        post.setContent(form.getContent());
+        post.setMax_team(form.getMax_team());
         postRepository.save(post);
         redirectAttributes.addAttribute("id", post.getId());
         return "redirect:/team-matching/posts/{id}";
     }
 
     @DeleteMapping("/posts/delete/{id}")
-    public String deletePost(@PathVariable Integer id) {
+    public String deletePost(@PathVariable Long id) {
         return "redirect:/team-matching";
     }
 
     @GetMapping("/posts/{id}/edit")
-    public String editForm(@PathVariable Integer id) {
+    public String editForm(@PathVariable Long id) {
 
         return "editForm";
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String edit(@PathVariable Integer id) {
+    public String edit(@PathVariable Long id) {
 
         return "redirect:/basic/items/{itemId}";
     }
