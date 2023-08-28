@@ -13,6 +13,7 @@ import teammatching.teammatching.domain.Category;
 import teammatching.teammatching.domain.Post;
 import teammatching.teammatching.domain.PostRepository;
 import teammatching.teammatching.form.PostSaveForm;
+import teammatching.teammatching.form.PostUpdateForm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,24 +73,37 @@ public class MainController {
         post.setMax_team(form.getMax_team());
         postRepository.save(post);
         redirectAttributes.addAttribute("id", post.getId());
-        return "redirect:/team-matching/posts/{id}";
+        return "redirect:/posts/{id}";
     }
 
     @DeleteMapping("/posts/delete/{id}")
     public String deletePost(@PathVariable Long id) {
-        return "redirect:/team-matching";
+        return "redirect:/";
     }
 
     @GetMapping("/posts/{id}/edit")
-    public String editForm(@PathVariable Long id) {
-
+    public String editForm(@PathVariable Long id, Model model) {
+        Post post = postRepository.findById(id);
+        model.addAttribute("post", post);
         return "editForm";
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String edit(@PathVariable Long id) {
+    public String edit(@PathVariable Long id, @Validated @ModelAttribute("post") PostUpdateForm form, BindingResult bindingResult) {
 
-        return "redirect:/basic/items/{itemId}";
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "editForm";
+        }
+
+        Post postParam = new Post();
+        postParam.setTitle(form.getTitle());
+        postParam.setCategory(form.getCategory());
+        postParam.setContent(form.getContent());
+        postParam.setMax_team(form.getMax_team());
+        postRepository.update(id, postParam);
+
+        return "redirect:/posts/{id}";
     }
 
     @GetMapping("/{category}")
