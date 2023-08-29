@@ -21,7 +21,6 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping
 @RequiredArgsConstructor
 public class MainController {
 
@@ -76,7 +75,7 @@ public class MainController {
         return "redirect:/posts/{id}";
     }
 
-    @DeleteMapping("/posts/delete/{id}")
+    @DeleteMapping("/posts/{id}/delete")
     public String deletePost(@PathVariable Long id) {
         return "redirect:/";
     }
