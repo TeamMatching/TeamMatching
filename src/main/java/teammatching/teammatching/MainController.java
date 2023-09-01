@@ -17,6 +17,7 @@ import teammatching.teammatching.form.PostUpdateForm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j
@@ -45,8 +46,9 @@ public class MainController {
 
     @GetMapping("/posts/{id}") //게시글 상세조회
     public String postDetail(@PathVariable Long id,Model model) {
-        //db에서 id로 게시글을 찾아서 Post객체에 주입
-        Post post = postRepository.findById(id);
+        //db에서 id로 게시글 찾기
+        Optional<Post> optionalPost = postRepository.findById(id);
+        Post post = optionalPost.get();
         model.addAttribute("post",post);
         return "post-detail";
     }
@@ -82,7 +84,8 @@ public class MainController {
 
     @GetMapping("/posts/{id}/edit")
     public String editForm(@PathVariable Long id, Model model) {
-        Post post = postRepository.findById(id);
+        Optional<Post> optionalPost = postRepository.findById(id);
+        Post post = optionalPost.get();
         model.addAttribute("post", post);
         return "editForm";
     }
@@ -94,13 +97,16 @@ public class MainController {
             log.info("errors={}", bindingResult);
             return "editForm";
         }
+        Optional<Post> optionalPost = postRepository.findById(id);
 
-        Post postParam = new Post();
-        postParam.setTitle(form.getTitle());
-        postParam.setCategory(form.getCategory());
-        postParam.setContent(form.getContent());
-        postParam.setMax_team(form.getMax_team());
-        postRepository.update(id, postParam);
+        Post post = optionalPost.get();
+
+        post.setTitle(form.getTitle());
+        post.setCategory(form.getCategory());
+        post.setContent(form.getContent());
+        post.setMax_team(form.getMax_team());
+//        postRepository.delete(post);
+        postRepository.save(post);
 
         return "redirect:/posts/{id}";
     }

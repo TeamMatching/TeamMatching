@@ -1,9 +1,14 @@
 package teammatching.teammatching.domain;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
+@Entity
+@Table(name="post")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String category;
     private String title;
