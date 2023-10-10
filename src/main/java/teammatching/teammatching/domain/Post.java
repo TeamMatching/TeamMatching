@@ -9,7 +9,9 @@ import lombok.Data;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_id")
     private Long id;
+
     private String category;
     private String title;
     private String content;
